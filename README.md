@@ -1,3 +1,6 @@
-# Course Store Template
+# Django project for Stepic course:
+Бэкенд разработка на Django: с нуля до специалиста
+https://stepik.org/course/125859/syllabus
 
-Template for Django course
+
+Итог работы по 6 модулям курса + пагинация с учётом фильтрации товаров по категориям
