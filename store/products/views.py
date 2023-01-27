@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
-from products.models import Basket, Product
+from products.models import Basket, Product, ProductCategory
 
 # from django.core.paginator import Paginator
 # from users.models import User
@@ -27,6 +27,11 @@ class ProductListView(TitleMixin, ListView):
         queryset = super().get_queryset()
         category_id = self.kwargs.get('category_id')
         return queryset.filter(category_id=category_id) if category_id else queryset
+    
+    def get_context_data(self):
+        context = super(ProductListView, self).get_context_data()
+        context['categories'] = ProductCategory.objects.all()
+        return context
 
 
 @login_required

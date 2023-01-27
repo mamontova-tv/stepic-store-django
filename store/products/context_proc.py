@@ -1,4 +1,4 @@
-from products.models import Basket
+from products.models import Basket, ProductCategory
 
 
 def category_id(request):

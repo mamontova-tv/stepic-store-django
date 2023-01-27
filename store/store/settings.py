@@ -38,9 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 
     'products',
-    'users'
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -78,10 +84,22 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "store_db",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
@@ -141,10 +159,27 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_PORT = '465'
-EMAIL_HOST_USER = 'testDserver@yandex.ru'
-EMAIL_HOST_PASSWORD = '2512testserver'
-# EMAIL_USE_TLS = ''
-EMAIL_USE_SSL = True
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # default - smtp
+# EMAIL_HOST = 'smtp.yandex.com'
+# EMAIL_PORT = '465'
+# EMAIL_HOST_USER = 'testDserver@yandex.ru'
+# EMAIL_HOST_PASSWORD = '2512testserver'
+# EMAIL_USE_SSL = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # default - smtp
+
+# OAuth
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+            'SCOPE': [
+                'user'
+            ],
+        }
+}
